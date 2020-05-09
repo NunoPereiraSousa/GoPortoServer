@@ -4,6 +4,7 @@ const userController = require("../Controller/users.controller");
 const identityController = require("../Controller/identities.controller");
 const itineraryController = require("../Controller/itineraries.controller");
 const categoryController = require("../Controller/categories.controller");
+const logAndRegController = require("../Controller/log.Controller");
 const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
@@ -35,5 +36,9 @@ router.get("/categories/:id", categoryController.getCategoryByID)
 router.post("/add-categories", categoryController.addCategory)
 router.put("/categories/update/:id", categoryController.updateCategory)
 router.put("/categories/delete/:id", categoryController.deleteCategory)
+
+// LOGIN & REGISTER routers
+router.get("/loginUsers", logAndRegController.logUser)
+router.post("/reg-users", logAndRegController.signUpUser)
 
 module.exports = router
