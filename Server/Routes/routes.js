@@ -10,6 +10,7 @@ const notificationController = require("../Controller/notification.controller");
 const commentController = require("../Controller/comments.controller");
 const postController = require("../Controller/posts.controller");
 const followedItineraryController = require("../Controller/followedItinerary.controller");
+const favoriteController = require("../Controller/favorite.controller");
 const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
@@ -70,6 +71,13 @@ router.put("/posts/delete/:id", postController.deletePost)
 router.get("/followedItineraries/:id", followedItineraryController.getFollowedByUserId)
 router.post("/add-followedItineraries", followedItineraryController.addFollowed)
 router.put("/followedItineraries/delete", followedItineraryController.deleteFollowed)
+
+
+
+// FAVORITE IDENTITY routes
+router.get("/favorites/:id", favoriteController.getFavoriteByUserId)
+router.post("/add-favorite", favoriteController.addFavorite)
+router.put("/favorites/delete", favoriteController.deleteFavorite)
 
 
 module.exports = router
