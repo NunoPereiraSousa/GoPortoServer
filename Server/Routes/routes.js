@@ -53,6 +53,4 @@ router.post("/add-notification", notificationController.addNotification)
 router.put("/notification/update", notificationController.updateNotification)
 
 
-
-
 module.exports = router
