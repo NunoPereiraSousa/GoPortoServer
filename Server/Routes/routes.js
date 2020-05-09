@@ -5,6 +5,8 @@ const identityController = require("../Controller/identities.controller");
 const itineraryController = require("../Controller/itineraries.controller");
 const categoryController = require("../Controller/categories.controller");
 const logAndRegController = require("../Controller/log.Controller");
+const suggestionsController = require("../Controller/suggestions.Controller");
+const notificationController = require("../Controller/notification.controller");
 const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
@@ -40,5 +42,17 @@ router.put("/categories/delete/:id", categoryController.deleteCategory)
 // LOGIN & REGISTER routers
 router.get("/loginUsers", logAndRegController.logUser)
 router.post("/reg-users", logAndRegController.signUpUser)
+
+// SUGGESTIONS routers
+router.get("/suggestions", suggestionsController.getSuggestion)
+router.put("/suggestions/update/:id", suggestionsController.updateSuggestion)
+
+// NOTIFICATION routers 
+router.get("/notification/:id", notificationController.getNotificationByUserId)
+router.post("/add-notification", notificationController.addNotification)
+router.put("/notification/update", notificationController.updateNotification)
+
+
+
 
 module.exports = router
