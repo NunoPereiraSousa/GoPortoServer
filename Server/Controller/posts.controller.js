@@ -48,10 +48,9 @@ function deletePost(req, res) {
             throw err;
     });
 }
-
-
 module.exports = {
     getPostByUserId,
     addPost,
     deletePost
 }
+

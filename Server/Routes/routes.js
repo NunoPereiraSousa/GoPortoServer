@@ -9,6 +9,7 @@ const suggestionsController = require("../Controller/suggestions.Controller");
 const notificationController = require("../Controller/notification.controller");
 const commentController = require("../Controller/comments.controller");
 const postController = require("../Controller/posts.controller");
+const followedItineraryController = require("../Controller/followedItinerary.controller");
 const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
@@ -62,5 +63,13 @@ router.post("/add-comments", commentController.addComment)
 router.get("/posts/:id", postController.getPostByUserId)
 router.post("/add-posts", postController.addPost)
 router.put("/posts/delete/:id", postController.deletePost)
+
+
+
+// FOLLOWED ITINERARY routes
+router.get("/followedItineraries/:id", followedItineraryController.getFollowedByUserId)
+router.post("/add-followedItineraries", followedItineraryController.addFollowed)
+router.put("/followedItineraries/delete", followedItineraryController.deleteFollowed)
+
 
 module.exports = router
