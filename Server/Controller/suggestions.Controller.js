@@ -15,7 +15,6 @@ function getSuggestion(req, res) {
 }
 
 function updateSuggestion(req, res) {
-    console.log("here");
     let id_suggestions = req.params.id;
     let id_status = req.body.status;
     con.query("UPDATE suggestion SET id_status = ? WHERE id_suggestion = ?", [id_status, id_suggestions], function (err,

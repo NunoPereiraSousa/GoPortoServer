@@ -6,7 +6,7 @@ function getNotificationByUserId(req, res) {
 
     let user_id = req.body.id
 
-    con.query(`SELECT * FROM log_table_notif WHERE id_user= ?`, user_id, (queryErr, result) => {
+    con.query("SELECT * FROM log_table_notif WHERE id_user = ?", user_id, (queryErr, result) => {
         if (!queryErr) {
             return res.send(result);
         } else {
@@ -25,9 +25,6 @@ function addNotification(req, res) {
         date: req.body.date,
         hour: req.body.hour
     }
-
-
-    console.log(notification);
 
     con.query(`INSERT INTO log_table_notif SET ?`, notification, (queryErr, result) => {
         if (!queryErr) {

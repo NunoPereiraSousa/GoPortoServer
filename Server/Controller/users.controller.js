@@ -39,7 +39,8 @@ function addUsers(req, res) {
 
 function getUserByID(req, res) {
     let id_user = req.params.id;
-    con.query("SELECT * FROM user WHERE id_user ?", id_user, function (err,
+    
+    con.query("SELECT * FROM user WHERE id_user = ?", id_user, function (err,
         result) {
         if (!err) {
             return res.json(result[0]);
@@ -52,7 +53,7 @@ function updateUser(req, res) {
     let id_user = req.params.id;
     let username = req.body.username;
 
-    con.query("UPDATE user SET username = '?' WHERE id_user = ?", [username, id_user], function (err,
+    con.query("UPDATE user SET username = ? WHERE id_user = ?", [username, id_user], function (err,
         result) {
         if (!err) {
             res.send(result);
