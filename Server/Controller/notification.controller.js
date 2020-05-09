@@ -4,7 +4,7 @@ const expressSanitizer = require('express-sanitizer');
 
 function getNotificationByUserId(req, res) {
 
-    let user_id = req.body.id
+    let user_id = req.params.id
 
     con.query("SELECT * FROM log_table_notif WHERE id_user = ?", user_id, (queryErr, result) => {
         if (!queryErr) {

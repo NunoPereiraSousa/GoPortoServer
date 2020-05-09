@@ -7,6 +7,8 @@ const categoryController = require("../Controller/categories.controller");
 const logAndRegController = require("../Controller/log.Controller");
 const suggestionsController = require("../Controller/suggestions.Controller");
 const notificationController = require("../Controller/notification.controller");
+const commentController = require("../Controller/comments.controller");
+const postController = require("../Controller/posts.controller");
 const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
@@ -48,9 +50,17 @@ router.get("/suggestions", suggestionsController.getSuggestion)
 router.put("/suggestions/update/:id", suggestionsController.updateSuggestion)
 
 // NOTIFICATION routers 
-router.get("/notification/:id", notificationController.getNotificationByUserId)
-router.post("/add-notification", notificationController.addNotification)
-router.put("/notification/update", notificationController.updateNotification)
+router.get("/notifications/:id", notificationController.getNotificationByUserId)
+router.post("/add-notifications", notificationController.addNotification)
+router.put("/notifications/update", notificationController.updateNotification)
 
+// COMMENTS routes
+router.get("/comments/:id", commentController.getCommentsByIdentityId)
+router.post("/add-comments", commentController.addComment)
+
+// POSTS routes
+router.get("/posts/:id", postController.getPostByUserId)
+router.post("/add-posts", postController.addPost)
+router.put("/posts/delete/:id", postController.deletePost)
 
 module.exports = router
