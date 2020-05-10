@@ -3,7 +3,6 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getNotificationByUserId(req, res) {
-
     let user_id = req.params.id
 
     con.query("SELECT * FROM log_table_notif WHERE id_user = ?", user_id, (queryErr, result) => {
@@ -39,9 +38,10 @@ function addNotification(req, res) {
 }
 
 function updateNotification(req, res) {
-    let id_user = req.params.id_user;
-    let id_suggestion = req.params.id_suggestion
-    let read_status = req.params.read_status
+    let id_user = req.body.id_user;
+    let id_suggestion = req.body.id_suggestion;
+    let read_status = req.body.read_status;
+
     con.query("UPDATE log_table_notif SET read_status = ? WHERE id_suggestion = ? and id_user= ?", [read_status, id_suggestion, id_user], function (err,
         result) {
         if (!err) {
@@ -50,8 +50,6 @@ function updateNotification(req, res) {
             throw err;
     });
 }
-
-
 
 module.exports = {
     updateNotification,

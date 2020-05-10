@@ -6,7 +6,7 @@ const itineraryController = require("../Controller/itineraries.controller");
 const categoryController = require("../Controller/categories.controller");
 const logAndRegController = require("../Controller/log.Controller");
 const suggestionsController = require("../Controller/suggestions.Controller");
-const notificationController = require("../Controller/notification.controller");
+const notificationController = require("../Controller/notifications.controller");
 const commentController = require("../Controller/comments.controller");
 const postController = require("../Controller/posts.controller");
 const followedItineraryController = require("../Controller/followedItinerary.controller");
@@ -44,14 +44,14 @@ router.put("/categories/update/:id", categoryController.updateCategory)
 router.put("/categories/delete/:id", categoryController.deleteCategory)
 
 // LOGIN & REGISTER routers
-router.get("/loginUsers", logAndRegController.logUser)
-router.post("/reg-users", logAndRegController.signUpUser)
+router.get("/login", logAndRegController.logUser)
+router.post("/register", logAndRegController.signUpUser)
 
 // SUGGESTIONS routers
-router.get("/suggestions", suggestionsController.getSuggestion)
+router.get("/suggestions", suggestionsController.getSuggestions)
 router.put("/suggestions/update/:id", suggestionsController.updateSuggestion)
 
-// NOTIFICATION routers 
+// NOTIFICATIONS routers 
 router.get("/notifications/:id", notificationController.getNotificationByUserId)
 router.post("/add-notifications", notificationController.addNotification)
 router.put("/notifications/update", notificationController.updateNotification)
@@ -65,19 +65,14 @@ router.get("/posts/:id", postController.getPostByUserId)
 router.post("/add-posts", postController.addPost)
 router.put("/posts/delete/:id", postController.deletePost)
 
-
-
 // FOLLOWED ITINERARY routes
 router.get("/followedItineraries/:id", followedItineraryController.getFollowedByUserId)
 router.post("/add-followedItineraries", followedItineraryController.addFollowed)
 router.put("/followedItineraries/delete", followedItineraryController.deleteFollowed)
 
-
-
 // FAVORITE IDENTITY routes
 router.get("/favorites/:id", favoriteController.getFavoriteByUserId)
 router.post("/add-favorite", favoriteController.addFavorite)
 router.put("/favorites/delete", favoriteController.deleteFavorite)
-
 
 module.exports = router

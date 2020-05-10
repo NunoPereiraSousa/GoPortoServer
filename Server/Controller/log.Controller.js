@@ -3,10 +3,8 @@ const con = require("../Database/database")
 const saltRounds = 10;
 
 function logUser(req, res) {
-
     let input = req.body.input
     let password = req.body.password
-
 
     const query = `SELECT * from user where user.username = ? or user.email = ?`
     con.query(query, [input, input], function (err,
@@ -51,7 +49,6 @@ function signUpUser(req, res) {
     let message = "success"
     let QResult = []
 
-
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
             con.query(`INSERT INTO user (id_user_type, block, name, username, password,email) VALUES ('1', '0', '${name}', '${username}', '${hash}', '${email}')`, (queryErr, result) => {
@@ -78,8 +75,6 @@ function signUpUser(req, res) {
             console.log(err);
         }
     });
-
-
 }
 
 module.exports = {

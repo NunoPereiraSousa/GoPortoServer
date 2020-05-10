@@ -3,9 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getFollowedByUserId(req, res) {
-
     let id_user = req.params.id
-
 
     con.query("SELECT * FROM followed_itinerary WHERE id_user = ? and block = '1'", id_user, (queryErr, result) => {
         if (!queryErr) {
@@ -19,14 +17,14 @@ function getFollowedByUserId(req, res) {
 }
 
 function addFollowed(req, res) {
-    let followed = {
+    let follow = {
         id_user: req.body.id_user,
         id_itinerary: req.body.id_itinerary,
         date_time: req.body.date_time,
         block: 1,
     }
 
-    con.query(`INSERT INTO followed_itinerary SET ?`, followed, (queryErr, result) => {
+    con.query("INSERT INTO followed_itinerary SET ?", follow, (queryErr, result) => {
         if (!queryErr) {
 
             console.log("followedItinerary inserted");

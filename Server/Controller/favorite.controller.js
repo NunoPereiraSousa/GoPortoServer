@@ -46,6 +46,7 @@ function deleteFavorite(req, res) {
             throw err;
     });
 }
+
 module.exports = {
     getFavoriteByUserId,
     addFavorite,

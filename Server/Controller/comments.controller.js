@@ -3,10 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getCommentsByIdentityId(req, res) {
-
     let identity_id = req.params.id
-    console.log(identity_id);
-
 
     con.query("SELECT * FROM comment WHERE id_identity = ?", identity_id, (queryErr, result) => {
         if (!queryErr) {

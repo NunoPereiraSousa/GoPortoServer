@@ -3,9 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getPostByUserId(req, res) {
-
     let id_user = req.params.id
-
 
     con.query("SELECT * FROM post WHERE id_user = ? and block = '1'", id_user, (queryErr, result) => {
         if (!queryErr) {
@@ -48,9 +46,9 @@ function deletePost(req, res) {
             throw err;
     });
 }
+
 module.exports = {
     getPostByUserId,
     addPost,
     deletePost
 }
-
