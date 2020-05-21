@@ -2,13 +2,34 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
-const router = require("./Routes/routes")
+const router = require("./Routes/routes");
+const session = require('express-session');
+const helmet = require('helmet');
+const csrf = require('csurf');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
+app.use(helmet.hsts({
+    maxAge: 7776000000,
+    includeSubDomains: true
+}));
+app.use(session({
+    secret: 'our super secret session secret',
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        maxAge: 3600000,
+        secure: true,
+        httpOnly: true
+    }
+}));
+app.use(csrf());
+app.use(function (req, res, next) {
+    res.locals._csrf = req.csrfToken();
+    next();
+});
 app.use(router);
 
 app.listen(port, () => console.log(`Serving working on port ${port}`));
