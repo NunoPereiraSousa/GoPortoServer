@@ -63,7 +63,7 @@ function signUpUser(req, res) {
                     res.status(201).send(message);
                 } else {
                     message = "Existent File"
-                    return res.status(400).send(message);
+                    res.status(400).send(message);
                 }
             })
         } else {

@@ -3,73 +3,97 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getUsers(req, res) {
+    let message = null
     con.query(`SELECT * FROM user`, (queryErr, result) => {
         if (!queryErr) {
-            return res.send(result);
+
+
+            if (result.length > 0) {
+                res.status(200).send(result);
+            } else {
+                let message = "Nothing to show"
+                res.status(400).send(message);
+            }
+
         } else {
-            return res.status(400).send({
-                "error": queryErr
-            });
+            message = "Error while performing Query."
+            res.status(500).send("Error while performing Query.")
         }
     })
 }
 
 function addUsers(req, res) {
-    let name = req.body.name;
-    let username = req.body.username;
+    let name = req.sanitize(req.body.name);
+    let username = req.sanitize(req.body.username);
     let password = req.sanitize(req.body.password);
-    
+    let message = null
+
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
             con.query(`INSERT INTO user (id_user_type, block, name, username, password) VALUES ('1', '0', '${name}', '${username}', '${hash}')`, (queryErr, result) => {
                 if (!queryErr) {
-                    console.log("User inserted");
-                    return res.send(result);
+                    message = "User created with success"
+                    res.status(201).send(result);
                 } else {
-                    return res.status(400).send({
-                        "error": queryErr
-                    });
+                    message = "Existent File"
+                    res.status(400).send(message);
                 }
             })
         } else {
-            console.log(err);
+            message = "Something went wrong, please try again."
+            res.status(500).send(message)
         }
     });
 }
 
 function getUserByID(req, res) {
-    let id_user = req.params.id;
-    
+    let id_user = req.sanitize(req.params.id);
+
     con.query("SELECT * FROM user WHERE id_user = ?", id_user, function (err,
         result) {
         if (!err) {
-            return res.json(result[0]);
-        } else
+            if (result.length > 0) {
+                res.status(200).send(result)
+            } else {
+                res.status(400).send("Nothing to show")
+            }
+        } else {
             console.log('Error while performing Query.', err);
+            res.status(500).send("Error while performing Query.")
+        }
+
     });
 }
 
 function updateUser(req, res) {
-    let id_user = req.params.id;
-    let username = req.body.username;
+    let id_user = req.sanitize(req.params.id);
+    let name = req.sanitize(req.body.name);
+    let location = req.sanitize(req.body.location);
+    let birth = req.sanitize(req.body.birth);
+    let email = req.sanitize(req.body.email);
+    let photo = req.sanitize(req.body.photo);
 
-    con.query("UPDATE user SET username = ? WHERE id_user = ?", [username, id_user], function (err,
+    con.query("UPDATE user SET name = ?, email = ?, location = ?, birth = ?, photo = ? WHERE id_user = ?", [name, email, location, birth, photo, id_user], function (err,
         result) {
         if (!err) {
-            res.send(result);
-        } else
-            throw err;
+            res.status(200).send(result);
+        } else {
+            res.status(400).send(err);
+        }
     });
 }
 
 function deleteUser(req, res) {
-    let id_user = req.params.id;
-    con.query("UPDATE user SET block = 2 WHERE id_user = ?", id_user, function (err,
+    let id_user = req.sanitize(req.params.id);
+    con.query("UPDATE user SET block = 2 WHERE id_user = ? and block!=2", id_user, function (err,
         result) {
         if (!err) {
-            return res.json(result);
-        } else
-            throw err;
+            console.log(result);
+            res.status(200).send("User successfully deleted");
+        } else {
+            console.log(err);
+            res.status(500).send("Something went wrong, please try again");
+        }
     });
 }
 
