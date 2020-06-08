@@ -5,8 +5,8 @@ const config = require('../config/config')
 const jwt = require('jsonwebtoken')
 
 function logUser(req, res) {
-    let input = req.body.input
-    let password = req.body.password
+    let input = req.sanitize(req.body.input)
+    let password = req.sanitize(req.body.password)
     let passwordSame = false
 
     const query = `SELECT * from user where user.username = ? or user.email = ?`
@@ -21,12 +21,11 @@ function logUser(req, res) {
                 if (passwordSame == false) {
                     result = []
                     message = "Incorrect data"
-                    console.log("PasswordFail"); // Just For tests
+
 
                 } else if (passwordSame && result[0].block !== 0) {
                     result = []
                     message = "Incorrect data"
-                    console.log("User is Blocked/Deleted"); //Just For tests
                 }
             }
             if (result.length > 0) {
@@ -50,10 +49,10 @@ function logUser(req, res) {
 }
 
 function signUpUser(req, res) {
-    let name = req.body.name;
-    let username = req.body.username;
+    let name = req.sanitize(req.body.name);
+    let username = req.sanitize(req.body.username);
     let password = req.sanitize(req.body.password);
-    let email = req.body.email;
+    let email = req.sanitize(req.body.email);
     let message = "success"
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
@@ -61,7 +60,6 @@ function signUpUser(req, res) {
 
                 if (!queryErr) {
                     message = "User created with success"
-                    console.log("User inserted");
                     res.status(201).send(message);
                 } else {
                     message = "Existent File"
