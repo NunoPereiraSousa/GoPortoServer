@@ -23,17 +23,16 @@ function logUser(req, res) {
                     message = "Incorrect data"
                     console.log("PasswordFail"); // Just For tests
 
-                } else if (result[0].password == password && result[0].block !== 0) {
+                } else if (passwordSame && result[0].block !== 0) {
                     result = []
                     message = "Incorrect data"
                     console.log("User is Blocked/Deleted"); //Just For tests
                 }
             }
-
             if (result.length > 0) {
-                // console.log(result[0].id_tp2_user)
+
                 const token = jwt.sign({
-                    id: result[0].id_tp2_user
+                    id: result[0].id_user
                 }, config.secret)
                 res.status(200).send({
                     token: token,
@@ -41,16 +40,7 @@ function logUser(req, res) {
                 })
             } else {
                 res.status(404).send(message)
-                console.log(message);
-
             }
-
-            let QResult = [{
-                result: result,
-                error: error,
-                message: message
-            }]
-            res.send(QResult)
         } else {
             let message = "Error while performing Query."
             console.log('Error while performing Query.', err);
@@ -64,39 +54,26 @@ function signUpUser(req, res) {
     let username = req.body.username;
     let password = req.sanitize(req.body.password);
     let email = req.body.email;
-
-    let error = null
     let message = "success"
-    let QResult = []
-
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
             con.query(`INSERT INTO user (id_user_type, block, name, username, password,email) VALUES ('1', '0', '${name}', '${username}', '${hash}', '${email}')`, (queryErr, result) => {
 
                 if (!queryErr) {
+                    message = "User created with success"
                     console.log("User inserted");
-                    QResult = [{
-                        result: result,
-                        error: queryErr,
-                        message: message
-                    }]
-                    res.send(QResult);
+                    res.status(201).send(message);
                 } else {
                     message = "Existent File"
-                    QResult = [{
-                        result: [],
-                        error: queryErr,
-                        message: message
-                    }]
-                    return res.status(400).send(QResult);
+                    return res.status(400).send(message);
                 }
             })
         } else {
-            console.log(err);
+            message = "Something went wrong, please try again."
+            res.status(500).send(message)
         }
     });
 }
-
 module.exports = {
     logUser,
     signUpUser

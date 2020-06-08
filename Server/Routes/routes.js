@@ -44,7 +44,7 @@ router.put("/categories/update/:id", categoryController.updateCategory)
 router.put("/categories/delete/:id", categoryController.deleteCategory)
 
 // LOGIN & REGISTER routers
-router.get("/login", logAndRegController.logUser)
+router.post("/login", logAndRegController.logUser)
 router.post("/register", logAndRegController.signUpUser)
 
 // SUGGESTIONS routers
