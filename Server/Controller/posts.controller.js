@@ -3,11 +3,15 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getPostByUserId(req, res) {
-    let id_user = req.params.id
+    let id_user = req.sanitize(req.params.id)
 
     con.query("SELECT * FROM post WHERE id_user = ? and block = '1'", id_user, (queryErr, result) => {
         if (!queryErr) {
-            return res.send(result);
+            if (result.length > 0) {
+                res.status(200).send(result)
+            } else {
+                res.status(204).send(result)
+            }
         } else {
             return res.status(400).send({
                 "error": queryErr
@@ -18,18 +22,18 @@ function getPostByUserId(req, res) {
 
 function addPost(req, res) {
     let post = {
-        id_user: req.body.id_user,
-        content: req.body.content,
-        date: req.body.date,
+        id_user: req.sanitize(req.body.id_user),
+        content: req.sanitize(req.body.content),
+        date: req.sanitize(req.body.date),
         block: 1,
     }
 
     con.query(`INSERT INTO post SET ?`, post, (queryErr, result) => {
         if (!queryErr) {
             console.log("Post inserted");
-            return res.send(result);
+            res.status(200).send(result);
         } else {
-            return res.status(400).send({
+            res.status(400).send({
                 "error": queryErr
             });
         }

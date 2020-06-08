@@ -5,9 +5,9 @@ const expressSanitizer = require('express-sanitizer');
 function getSuggestions(req, res) {
     con.query(`SELECT * FROM suggestion`, (queryErr, result) => {
         if (!queryErr) {
-            return res.send(result);
+            res.status(200).send(result);
         } else {
-            return res.status(400).send({
+            res.status(500).send({
                 "error": queryErr
             });
         }
@@ -15,15 +15,18 @@ function getSuggestions(req, res) {
 }
 
 function updateSuggestion(req, res) {
-    let id_suggestions = req.params.id;
-    let id_status = req.body.status;
-    
+    let id_suggestions = req.sanitize(req.params.id);
+    let id_status = req.sanitize(req.body.status);
+
     con.query("UPDATE suggestion SET id_status = ? WHERE id_suggestion = ?", [id_status, id_suggestions], function (err,
         result) {
         if (!err) {
-            res.send(result);
-        } else
-            throw err;
+            res.status(200).send(result);
+        } else {
+            console.log(err);
+            res.status(500).send(err)
+        }
+
     });
 }
 module.exports = {
