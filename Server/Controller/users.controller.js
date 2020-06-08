@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
