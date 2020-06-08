@@ -23,14 +23,16 @@ function getUsers(req, res) {
 }
 
 function addUsers(req, res) {
+    let id_user_type = req.sanitize(req.body.id_user_type);
     let name = req.sanitize(req.body.name);
     let username = req.sanitize(req.body.username);
     let password = req.sanitize(req.body.password);
+    let email = req.sanitize(req.body.email);
     let message = null
 
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
-            con.query(`INSERT INTO user (id_user_type, block, name, username, password) VALUES ('1', '0', '${name}', '${username}', '${hash}')`, (queryErr, result) => {
+            con.query(`INSERT INTO user (id_user_type, block, name, username, password,email) VALUES ('${id_user_type}', '0', '${name}', '${username}', '${hash}','${email}')`, (queryErr, result) => {
                 if (!queryErr) {
                     message = "User created with success"
                     res.status(201).send(result);
