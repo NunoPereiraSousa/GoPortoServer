@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const con = require("../Database/database")
 const saltRounds = 10;
+const config = require('../config/config')
+const jwt = require('jsonwebtoken')
 
 function logUser(req, res) {
     let input = req.body.input
