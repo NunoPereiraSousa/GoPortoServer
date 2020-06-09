@@ -6,11 +6,12 @@ function getFavoriteByUserId(req, res) {
     let id_user = req.sanitize(req.params.id)
     con.query("SELECT * FROM user_favourite WHERE id_user = ? and block = '1'", id_user, (queryErr, result) => {
         if (!queryErr) {
-            if (result > 0) {
-                res.status(200).send(result);
-            } else {
-                res.status(204).send(result);
-            }
+            res.status(200).send(result);
+            // if (result > 0) {
+            //     res.status(200).send(result);
+            // } else {
+            //     res.status(204).send(result);
+            // }
         } else {
             res.status(400).send({
                 "error": queryErr
