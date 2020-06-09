@@ -44,6 +44,8 @@ function addUsers(req, res) {
         } else {
             message = "Something went wrong, please try again."
             res.status(500).send(message)
+            console.log(queryErr);
+            
         }
     });
 }

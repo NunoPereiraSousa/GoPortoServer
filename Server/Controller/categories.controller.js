@@ -6,13 +6,13 @@ function getCategories(req, res) {
     con.query(`SELECT * FROM category`, (queryErr, result) => {
         if (!queryErr) {
             if (result > 0) {
-                res.status(200).send(result);
+                res.status(200).send(result);                
             } else {
-                res.status(204).send(result);
+                res.status(200).send(result);
             }
-
         } else {
             res.status(500).send("Something went wrong please try again later");
+            
         }
     })
 }
