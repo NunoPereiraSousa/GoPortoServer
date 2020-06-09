@@ -37,7 +37,7 @@ function addUsers(req, res) {
                     message = "User created with success"
                     res.status(201).send(result);
                 } else {
-                    message = "Existent File"
+                    message = "Something went wrong"
                     res.status(400).send(message);
                 }
             })
@@ -45,7 +45,7 @@ function addUsers(req, res) {
             message = "Something went wrong, please try again."
             res.status(500).send(message)
             console.log(queryErr);
-            
+
         }
     });
 }
