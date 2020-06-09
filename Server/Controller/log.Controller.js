@@ -62,11 +62,8 @@ function signUpUser(req, res) {
                     message = "User created with success"
                     res.status(201).send(message);
                 } else {
-
                     message = "Existent File"
-                    console.log(queryErr);
-
-                    res.status(400).send(queryErr);
+                    res.status(400).send(message);
                 }
             })
         } else {
