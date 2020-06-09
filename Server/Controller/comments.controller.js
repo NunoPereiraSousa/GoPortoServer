@@ -31,7 +31,6 @@ function addComment(req, res) {
 
     con.query(`INSERT INTO comment SET ?`, comment, (queryErr, result) => {
         if (!queryErr) {
-            console.log("comment inserted");
             res.status(200).send("Comment inserted");
         } else {
             res.status(400).send({

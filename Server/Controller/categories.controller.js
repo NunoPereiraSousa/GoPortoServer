@@ -7,12 +7,9 @@ function getCategories(req, res) {
         if (!queryErr) {
             if (result > 0) {
                 res.status(200).send(result);                
-            } else {
-                res.status(200).send(result);
             }
         } else {
             res.status(500).send("Something went wrong please try again later");
-            
         }
     })
 }
@@ -26,7 +23,6 @@ function addCategory(req, res) {
 
     con.query(`INSERT INTO category SET ?`, category, (queryErr, result) => {
         if (!queryErr) {
-            console.log("Category inserted");
             res.status(200).send(result);
         } else {
             res.status(400).send({
@@ -46,12 +42,9 @@ function getCategoryByID(req, res) {
             } else {
                 res.status(400).send(result);
             }
-
         } else {
-            console.log('Error while performing Query.', err);
             res.status(500).send("Something went wrong, please try again", err)
         }
-
     });
 }
 

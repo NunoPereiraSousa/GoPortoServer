@@ -11,7 +11,6 @@ function getFavoriteByUserId(req, res) {
             } else {
                 res.status(204).send(result);
             }
-
         } else {
             res.status(400).send({
                 "error": queryErr
@@ -30,7 +29,6 @@ function addFavorite(req, res) {
 
     con.query(`INSERT INTO user_favourite SET ?`, favorite, (queryErr, result) => {
         if (!queryErr) {
-            console.log("favorite inserted");
             res.status(200).send("favorite inserted");
         } else {
             res.status(400).send({
