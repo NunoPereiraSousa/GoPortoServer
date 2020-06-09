@@ -5,7 +5,13 @@ const port = process.env.PORT || 3000;
 const router = require("./Routes/routes");
 const session = require('express-session');
 const helmet = require('helmet');
+const cors = require("cors")
 // const csrf = require('csurf');
+
+app.use(cors({
+    credentials: true,
+    origin: true
+}))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
