@@ -86,7 +86,7 @@ function ThreeMostFollowedItineraries(req, res) {
                         INNER JOIN
                     user ON itinerary.id_user = user.id_user
                 ORDER BY num_shares DESC , itinerary.name ASC
-                LIMIT 3;`, id_itinerary, function (err,
+                LIMIT 3;`, function (err,
         result) {
         if (!err) {
             res.status(200).send(result);
