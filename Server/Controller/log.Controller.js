@@ -23,7 +23,7 @@ function logUser(req, res) {
                     message = "Incorrect data"
 
 
-                } else if (passwordSame && result[0].block !== 0) {
+                } else if (passwordSame && result[0].block == 2) {
                     result = []
                     message = "Incorrect data"
                 }
@@ -56,7 +56,7 @@ function signUpUser(req, res) {
     let message = "success"
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
-            con.query(`INSERT INTO user (id_user_type, block, name, username, password,email) VALUES ('1', '0', '${name}', '${username}', '${hash}', '${email}')`, (queryErr, result) => {
+            con.query(`INSERT INTO user (id_user_type, block, name, username, password,email) VALUES ('2', '0', '${name}', '${username}', '${hash}', '${email}')`, (queryErr, result) => {
 
                 if (!queryErr) {
                     message = "User created with success"
