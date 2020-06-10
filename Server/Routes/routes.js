@@ -15,7 +15,7 @@ const expressSanitizer = require('express-sanitizer');
 
 router.use(expressSanitizer())
 
-router.get("/", itineraryController.ThreeMostFollowedItineraries)
+router.get("/home", itineraryController.ThreeMostFollowedItineraries)
 
 // USERS routers
 router.get("/users", userController.getUsers)
