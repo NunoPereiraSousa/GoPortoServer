@@ -78,10 +78,28 @@ function deleteItinerary(req, res) {
     });
 }
 
+function ThreeMostFollowedItineraries(req, res) {
+    con.query(`SELECT 
+                    num_shares, itinerary.name, user.username
+                FROM
+                    itinerary
+                        INNER JOIN
+                    user ON itinerary.id_user = user.id_user
+                ORDER BY num_shares DESC , itinerary.name ASC
+                LIMIT 3;`, id_itinerary, function (err,
+        result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else
+            res.status(500).send("Something went wrong please try again", err)
+    });
+}
+
 module.exports = {
     getItineraries,
     getItineraryByID,
     addItinerary,
     updateItinerary,
-    deleteItinerary
+    deleteItinerary,
+    ThreeMostFollowedItineraries
 }
