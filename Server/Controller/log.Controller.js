@@ -65,12 +65,12 @@ function signUpUser(req, res) {
 
 
 
-                    if (queryErr.sqlMessage.includes("'email_UNIQUE'")) {
-                        message = "The email has been taken"
-                    } else if (queryErr.sqlMessage.includes("'username_UNIQUE'")) {
-                        message = "The username has been taken"
-                    }
-                    res.status(400).send(message);
+                    // if (queryErr.sqlMessage.includes("'email_UNIQUE'")) {
+                    //     message = "The email has been taken"
+                    // } else if (queryErr.sqlMessage.includes("'username_UNIQUE'")) {
+                    //     message = "The username has been taken"
+                    // }
+                    res.status(400).send(queryErr);
                     // hustle
                 }
             })
