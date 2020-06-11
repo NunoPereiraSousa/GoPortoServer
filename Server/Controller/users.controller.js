@@ -70,6 +70,7 @@ function getUserByID(req, res) {
 }
 
 function updateUser(req, res) {
+    let id_user = req.sanitize(req.params.id);
     let id_user_type = req.sanitize(req.body.id_user_type);
     let name = req.sanitize(req.body.name);
     let username = req.sanitize(req.body.username);
@@ -82,13 +83,13 @@ function updateUser(req, res) {
 
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
-            con.query(`UPDATE user SET id_user_type ?, name = ?, username = ?, password = ?, email = ?, photo = ?, location = ?, birth = ?`,
-            id_user_type, name, username, hash, email, photo, location, birth ,(queryErr, result) => {
-                if (!queryErr) {
-                    message = "User created with success"
-                    res.status(200).send(result);
-                }
-            })
+            con.query(`UPDATE user SET id_user_type ?, name = ?, username = ?, password = ?, email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
+                [id_user_type, name, username, hash, email, photo, location, birth, id_user], (queryErr, result) => {
+                    if (!queryErr) {
+                        message = "User created with success"
+                        res.status(200).send(result);
+                    }
+                })
         } else {
             message = "Something went wrong, please try again."
             res.status(500).send(message)
