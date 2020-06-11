@@ -64,6 +64,7 @@ function signUpUser(req, res) {
                 } else {
                     message = "Existent File"
                     res.status(400).send(queryErr);
+                    // hustle
                 }
             })
         } else {
