@@ -79,15 +79,18 @@ function updateUser(req, res) {
     let photo = req.sanitize(req.body.photo);
     let location = req.sanitize(req.body.location);
     let birth = req.sanitize(req.body.birth);
-    let message = null
+    let message = null    
 
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
-            con.query(`UPDATE user SET id_user_type ?, name = ?, username = ?, password = ?, email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
+            con.query(`UPDATE user SET id_user_type = ?, name = ?, username = ?, password = ?, email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
                 [id_user_type, name, username, hash, email, photo, location, birth, id_user], (queryErr, result) => {
                     if (!queryErr) {
-                        message = "User created with success"
+                        message = "User edited with success"
                         res.status(200).send(result);
+                    } else {
+                        console.log(queryErr);
+                        
                     }
                 })
         } else {
