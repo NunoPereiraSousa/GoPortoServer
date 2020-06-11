@@ -101,10 +101,37 @@ function deleteUser(req, res) {
     });
 }
 
+function addUsersAdmin(req, res) {
+    let id_user_type = req.sanitize(req.body.id_user_type);
+    let name = req.sanitize(req.body.name);
+    let username = req.sanitize(req.body.username);
+    let password = req.sanitize(req.body.password);
+    let email = req.sanitize(req.body.email);
+    let photo = req.sanitize(req.body.photo);
+    let location = req.sanitize(req.body.location);
+    let birth = req.sanitize(req.body.birth);
+    let message = null
+
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (!err) {
+            con.query(`INSERT INTO user (id_user_type, block, name, username, password, email, photo, location, birth) VALUES ('${id_user_type}', '0', '${name}', '${username}', '${hash}', '${email}', '${photo}', '${location}', '${birth}')`, (queryErr, result) => {
+                if (!queryErr) {
+                    message = "User created with success"
+                    res.status(200).send(result);
+                }
+            })
+        } else {
+            message = "Something went wrong, please try again."
+            res.status(500).send(message)
+        }
+    });
+}
+
 module.exports = {
     getUsers,
     getUserByID,
     addUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    addUsersAdmin
 }
