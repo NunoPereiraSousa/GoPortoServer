@@ -70,19 +70,28 @@ function getUserByID(req, res) {
 }
 
 function updateUser(req, res) {
-    let id_user = req.sanitize(req.params.id);
+    let id_user_type = req.sanitize(req.body.id_user_type);
     let name = req.sanitize(req.body.name);
-    let location = req.sanitize(req.body.location);
-    let birth = req.sanitize(req.body.birth);
+    let username = req.sanitize(req.body.username);
+    let password = req.sanitize(req.body.password);
     let email = req.sanitize(req.body.email);
     let photo = req.sanitize(req.body.photo);
+    let location = req.sanitize(req.body.location);
+    let birth = req.sanitize(req.body.birth);
+    let message = null
 
-    con.query("UPDATE user SET name = ?, email = ?, location = ?, birth = ?, photo = ? WHERE id_user = ?", [name, email, location, birth, photo, id_user], function (err,
-        result) {
+    bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
-            res.status(200).send(result);
+            con.query(`UPDATE user SET id_user_type ?, name = ?, username = ?, password = ?, email = ?, photo = ?, location = ?, birth = ?`,
+            id_user_type, name, username, hash, email, photo, location, birth ,(queryErr, result) => {
+                if (!queryErr) {
+                    message = "User created with success"
+                    res.status(200).send(result);
+                }
+            })
         } else {
-            res.status(400).send(err);
+            message = "Something went wrong, please try again."
+            res.status(500).send(message)
         }
     });
 }
