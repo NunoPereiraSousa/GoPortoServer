@@ -87,6 +87,19 @@ function updateUser(req, res) {
     });
 }
 
+function blockUser(req, res) {
+    let id_user = req.sanitize(req.params.id);
+
+    con.query("UPDATE user SET block = 1", function (err,
+        result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else {
+            res.status(400).send(err);
+        }
+    });
+}
+
 function deleteUser(req, res) {
     let id_user = req.sanitize(req.params.id);
     con.query("UPDATE user SET block = 2 WHERE id_user = ? and block!=2", id_user, function (err,
@@ -133,5 +146,6 @@ module.exports = {
     addUsers,
     updateUser,
     deleteUser,
+    blockUser,
     addUsersAdmin
 }
