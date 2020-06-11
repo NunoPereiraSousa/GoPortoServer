@@ -52,6 +52,7 @@ router.post("/register", logAndRegController.signUpUser)
 // SUGGESTIONS routers
 router.get("/suggestions", suggestionsController.getSuggestions)
 router.put("/suggestions/update/:id", suggestionsController.updateSuggestion)
+router.post("/add-suggestions", suggestionsController.addSuggestion)
 
 // NOTIFICATIONS routers 
 router.get("/notifications/:id", notificationController.getNotificationByUserId)

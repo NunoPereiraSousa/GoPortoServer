@@ -23,13 +23,33 @@ function updateSuggestion(req, res) {
         if (!err) {
             res.status(200).send(result);
         } else {
-            console.log(err);
             res.status(500).send(err)
         }
-
     });
 }
+
+function addSuggestion(req, res) {
+    let suggestion = {
+        id_user: req.sanitize(req.body.id_user),
+        photo: req.sanitize(req.body.photo),
+        content: req.sanitize(req.body.content),
+        new_identity: req.sanitize(req.body.new_identity),
+        id_status: 2,
+        id_category: req.sanitize(req.body.id_category)
+    }
+
+    con.query("INSERT INTO suggestion SET ?", suggestion, function (err,
+        result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else {
+            res.status(500).send(err)
+        }
+    });
+}
+
 module.exports = {
     getSuggestions,
     updateSuggestion,
+    addSuggestion
 }
