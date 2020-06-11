@@ -35,7 +35,7 @@ function addSuggestion(req, res) {
         content: req.sanitize(req.body.content),
         new_identity: req.sanitize(req.body.new_identity),
         id_status: 2,
-        id_category: req.sanitize(req.body.id_category)
+        category_name: req.sanitize(req.body.category_name)
     }
 
     con.query("INSERT INTO suggestion SET ?", suggestion, function (err,
