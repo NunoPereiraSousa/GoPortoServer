@@ -5,7 +5,13 @@ const expressSanitizer = require('express-sanitizer');
 function getPostByUserId(req, res) {
     let id_user = req.sanitize(req.params.id)
 
-    con.query("SELECT * FROM post WHERE id_user = ? and block = '1'", id_user, (queryErr, result) => {
+    con.query(`SELECT 
+                    content, date, user.username
+                FROM
+                    post
+                        INNER JOIN
+                    user ON post.id_user = user.id_user
+                        AND post.block = 1 AND user.id_user = ?;`, id_user, (queryErr, result) => {
         if (!queryErr) {
             if (result.length > 0) {
                 res.status(200).send(result)
