@@ -102,8 +102,9 @@ function updateUser(req, res) {
 
 function blockUser(req, res) {
     let id_user = req.sanitize(req.params.id);
+    let block = req.sanitize(req.body.block);
 
-    con.query("UPDATE user SET block = 1 WHERE id_user = ?", id_user, function (err,
+    con.query("UPDATE user SET block = ? WHERE id_user = ?", [block, id_user], function (err,
         result) {
         if (!err) {
             res.status(200).send(result);
