@@ -60,8 +60,8 @@ function updateCategory(req, res) {
 }
 
 function deleteCategory(req, res) {
-    let id_category = req.sanitize(req.params.id);
-    con.query("UPDATE category SET block = 2 WHERE id_category = ?", id_category, function (err,
+    let category_name = req.sanitize(req.params.id);
+    con.query("UPDATE category SET block = 2 WHERE category_name = ?", category_name, function (err,
         result) {
         if (!err) {
             res.status(200).send(result);
