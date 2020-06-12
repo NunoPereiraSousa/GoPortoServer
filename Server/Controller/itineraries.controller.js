@@ -3,7 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getItineraries(req, res) {
-    con.query(`SELECT * FROM itinerary WHERE block = 1`, (queryErr, result) => {
+    con.query(`SELECT * FROM itinerary WHERE block != 2`, (queryErr, result) => {
         if (!queryErr) {
             if (result.length === 0) {
                 res.status(204).send(result);
