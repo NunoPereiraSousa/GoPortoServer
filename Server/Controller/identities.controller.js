@@ -21,7 +21,7 @@ function addIdentity(req, res) {
         block: 1,
         name: req.sanitize(req.body.name),
         information: req.sanitize(req.body.information),
-        id_category: req.sanitize(req.body.id_category),
+        category_name: req.sanitize(req.body.category_name),
         lat: req.sanitize(req.body.lat),
         lng: req.sanitize(req.body.lng),
         image: req.sanitize(req.body.image)
