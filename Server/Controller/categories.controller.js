@@ -3,7 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getCategories(req, res) {
-    con.query(`SELECT * FROM category`, (queryErr, result) => {
+    con.query(`SELECT * FROM category WHERE block != 2`, (queryErr, result) => {
         if (!queryErr) {
             res.status(200).send(result);
         } else {
@@ -64,7 +64,7 @@ function deleteCategory(req, res) {
     con.query("UPDATE category SET block = 2 WHERE id_category = ?", id_category, function (err,
         result) {
         if (!err) {
-            res.status(200).send("Category deleted successfully ");
+            res.status(200).send(result);
         } else
             res.status(500).send("Something went wrong, please try again", err);
     });
