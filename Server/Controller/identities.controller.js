@@ -3,7 +3,7 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getIdentities(req, res) {
-    con.query(`SELECT * FROM identity`, (queryErr, result) => {
+    con.query(`SELECT * FROM identity WHERE block = 1`, (queryErr, result) => {
         if (!queryErr) {
             if (result.length > 0) {
                 res.status(200).send(result);

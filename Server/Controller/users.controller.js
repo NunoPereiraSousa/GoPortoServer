@@ -4,7 +4,7 @@ const expressSanitizer = require('express-sanitizer');
 
 function getUsers(req, res) {
     let message = null
-    con.query(`SELECT * FROM user`, (queryErr, result) => {
+    con.query(`SELECT * FROM user WHERE block = 1`, (queryErr, result) => {
         if (!queryErr) {
 
 
