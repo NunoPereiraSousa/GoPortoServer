@@ -36,13 +36,16 @@ function getAllItinerariesComplete(req, res) {
     identity.information,
     identity.category_name,
     identity.lat,
-    identity.lng
+    identity.lng,
+    user.username
 FROM
-    ((D3c9hRhknT.itinerary_identity
+    (((D3c9hRhknT.itinerary_identity
     INNER JOIN D3c9hRhknT.itinerary ON itinerary.id_itinerary = itinerary_identity.id_itinerary)
     INNER JOIN D3c9hRhknT.identity ON identity.id_identity = itinerary_identity.id_identity)
+	INNER JOIN D3c9hRhknT.user ON itinerary.id_user = user.id_user)
     where itinerary.block = 1
-ORDER BY itinerary_identity.id_itinerary`, (queryErr, result) => {
+ORDER BY itinerary_identity.id_itinerary
+;`, (queryErr, result) => {
         if (!queryErr) {
             if (result.length === 0) {
                 res.status(204).send(result);
