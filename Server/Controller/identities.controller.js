@@ -20,14 +20,15 @@ function addIdentity(req, res) {
     let identity = {
         block: 1,
         name: req.sanitize(req.body.name),
+        information: req.sanitize(req.body.information),
         id_category: req.sanitize(req.body.id_category),
         lat: req.sanitize(req.body.lat),
-        lng: req.sanitize(req.body.lng)
+        lng: req.sanitize(req.body.lng),
+        image: req.sanitize(req.body.image)
     }
 
     con.query("INSERT INTO identity SET ?", identity, (queryErr, result) => {
         if (!queryErr) {
-            console.log("Identity inserted");
             res.status(200).send(result);
         } else {
             res.status(400).send({
@@ -50,16 +51,15 @@ function getIdentityByID(req, res) {
     });
 }
 
-// !!!!!!!!!!!!<this must be changed 
 function updateIdentity(req, res) {
     let id_identity = req.sanitize(req.params.id);
     let name = req.sanitize(req.body.name);
-    let information = req.sanitize(req.params.information);
-    let id_category = req.sanitize(req.params.id_category);
-    let lat = req.sanitize(req.params.lat);
-    let lng = req.sanitize(req.params.lng);
-    let image = req.sanitize(req.params.image);
-    con.query("UPDATE identity SET name = ?,information = ?,id_category = ?,lat = ?,lng = ?,image = ?  WHERE id_identity = ?", [name, information, id_category, lat, lng, image, id_identity], function (err,
+    let information = req.sanitize(req.body.information);
+    let id_category = req.sanitize(req.body.id_category);
+    let lat = req.sanitize(req.body.lat);
+    let lng = req.sanitize(req.body.lng);
+    let image = req.sanitize(req.body.image);
+    con.query("UPDATE identity SET name = ?, information = ?, id_category = ?, lat = ?, lng = ?, image = ? WHERE id_identity = ?", [name, information, id_category, lat, lng, image, id_identity], function (err,
         result) {
         if (!err) {
             res.status(200).send(result);
@@ -67,7 +67,7 @@ function updateIdentity(req, res) {
             res.status(500).send(err);
     });
 }
-// !!!!!!!!!!!!1this must be changed>
+
 function deleteIdentity(req, res) {
     let id_identity = req.sanitize(req.params.id);
     con.query("UPDATE identity SET block = 2 WHERE id_identity = ? and block != 2", id_identity, function (err,
@@ -75,10 +75,8 @@ function deleteIdentity(req, res) {
         if (!err) {
             res.status(200).send(result);
         } else {
-            console.log(err);
             res.status(500).send("Something went wrong, please try again")
         }
-
     });
 }
 
