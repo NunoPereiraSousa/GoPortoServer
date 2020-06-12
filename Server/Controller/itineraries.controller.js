@@ -19,6 +19,58 @@ function getItineraries(req, res) {
     })
 }
 
+
+// ;
+
+function getAllItinerariesComplete(req, res) {
+    con.query(`SELECT 
+    itinerary_identity.id_itinerary,
+    itinerary_identity.id_identity,
+    itinerary.name,
+    itinerary.kids_num,
+    itinerary.adults_num,
+    itinerary.id_user,
+    itinerary.block,
+    identity.id_identity,
+    identity.name,
+    identity.information,
+    identity.category_name,
+    identity.lat,
+    identity.lng
+FROM
+    ((D3c9hRhknT.itinerary_identity
+    INNER JOIN D3c9hRhknT.itinerary ON itinerary.id_itinerary = itinerary_identity.id_itinerary)
+    INNER JOIN D3c9hRhknT.identity ON identity.id_identity = itinerary_identity.id_identity)
+    where itinerary.block = 1
+ORDER BY itinerary_identity.id_itinerary`, (queryErr, result) => {
+        if (!queryErr) {
+            if (result.length === 0) {
+                res.status(204).send(result);
+            } else {
+                res.status(200).send(result);
+            }
+            return
+        } else {
+            return res.status(400).send({
+                "error": queryErr
+            });
+        }
+    })
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 function addItinerary(req, res) {
     let itinerary = {
         name: req.sanitize(req.body.name),
@@ -96,6 +148,7 @@ function ThreeMostFollowedItineraries(req, res) {
 }
 
 module.exports = {
+    getAllItinerariesComplete,
     getItineraries,
     getItineraryByID,
     addItinerary,

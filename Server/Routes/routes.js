@@ -35,6 +35,7 @@ router.put("/identities/delete/:id", identityController.deleteIdentity)
 
 // ITINERARIES routers
 router.get("/itineraries", itineraryController.getItineraries)
+router.get("/fullItineraries", itineraryController.getAllItinerariesComplete)
 router.get("/itineraries/:id", itineraryController.getItineraryByID)
 router.post("/add-itineraries", itineraryController.addItinerary)
 router.put("/itineraries/update/:id", itineraryController.updateItinerary)
