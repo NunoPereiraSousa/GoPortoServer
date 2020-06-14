@@ -5,7 +5,20 @@ const expressSanitizer = require('express-sanitizer');
 function getCommentsByIdentityId(req, res) {
     let identity_id = req.sanitize(req.params.id)
 
-    con.query("SELECT * FROM comment WHERE id_identity = ?", identity_id, (queryErr, result) => {
+    con.query(`SELECT 
+    comment.date_hour,
+    user.username,
+    comment.id_identity,
+    comment.comment_text,
+    comment.num_star
+FROM
+    D3c9hRhknT.comment
+        INNER JOIN
+    D3c9hRhknT.user ON user.id_user = comment.id_user
+WHERE
+    comment.id_identity = ?
+ORDER BY comment.date_hour
+;`, identity_id, (queryErr, result) => {
         if (!queryErr) {
             if (result.length > 0) {
                 res.status(200).send(result);
