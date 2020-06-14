@@ -7,6 +7,7 @@ function getCommentsByIdentityId(req, res) {
 
     con.query(`SELECT 
     comment.date_hour,
+    user.id_user,
     user.username,
     user.photo,
     comment.id_identity,
