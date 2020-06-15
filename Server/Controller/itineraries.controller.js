@@ -59,10 +59,48 @@ ORDER BY itinerary_identity.id_itinerary
             });
         }
     })
+}
 
 
 
 
+
+
+
+function addIdentityItinerary(req, res) {
+    let newData = {
+        id_itinerary: req.sanitize(req.body.id_itinerary),
+        id_identity: req.sanitize(req.body.id_identity),
+    }
+
+    con.query("INSERT INTO itinerary_identity SET ?", newData, (queryErr, result) => {
+        if (!queryErr) {
+            return res.status(200).send(result);
+        } else {
+            return res.status(400).send({
+                "error": queryErr
+            });
+        }
+    })
+}
+
+
+
+function getLastItineraryId(req, res) {
+    con.query(`select id_itinerary from itinerary where block = 1 order by id_itinerary`, (queryErr, result) => {
+        if (!queryErr) {
+            if (result.length === 0) {
+                res.status(204).send(result[result.length - 1]);
+            } else {
+                res.status(200).send(result[result.length - 1]);
+            }
+            return
+        } else {
+            return res.status(400).send({
+                "error": queryErr
+            });
+        }
+    })
 }
 
 
@@ -157,5 +195,8 @@ module.exports = {
     addItinerary,
     updateItinerary,
     deleteItinerary,
-    ThreeMostFollowedItineraries
+    ThreeMostFollowedItineraries,
+
+    getLastItineraryId,
+    addIdentityItinerary,
 }

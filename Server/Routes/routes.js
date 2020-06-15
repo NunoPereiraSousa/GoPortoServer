@@ -38,6 +38,10 @@ router.get("/itineraries", itineraryController.getItineraries)
 router.get("/fullItineraries", itineraryController.getAllItinerariesComplete)
 router.get("/itineraries/:id", itineraryController.getItineraryByID)
 router.post("/add-itineraries", itineraryController.addItinerary)
+// !
+router.get("/itineraries-lastId", itineraryController.getLastItineraryId)
+router.post("/itineraries_identities", itineraryController.addIdentityItinerary)
+// !
 router.put("/itineraries/update/:id", itineraryController.updateItinerary)
 router.put("/itineraries/delete/:id", itineraryController.deleteItinerary)
 
