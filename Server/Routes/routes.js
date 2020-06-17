@@ -76,6 +76,7 @@ router.post("/add-posts", postController.addPost)
 router.put("/posts/delete/:id", postController.deletePost)
 
 // FOLLOWED ITINERARY routes
+router.get("/followedItineraries", followedItineraryController.getAllFollowed)
 router.get("/followedItineraries/:id", followedItineraryController.getFollowedByUserId)
 router.post("/add-followedItineraries", followedItineraryController.addFollowed)
 router.put("/followedItineraries/delete", followedItineraryController.deleteFollowed)

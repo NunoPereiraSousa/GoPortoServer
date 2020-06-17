@@ -20,11 +20,30 @@ function getFollowedByUserId(req, res) {
     })
 }
 
+
+function getAllFollowed(req, res) {
+    con.query(`SELECT * FROM followed_itinerary WHERE block != 2`, (queryErr, result) => {
+        if (!queryErr) {
+            if (result.length === 0) {
+                res.status(204).send(result);
+            } else {
+                res.status(200).send(result);
+            }
+            return
+        } else {
+            return res.status(400).send({
+                "error": queryErr
+            });
+        }
+    })
+}
+
+
+
 function addFollowed(req, res) {
     let follow = {
         id_user: req.sanitize(req.body.id_user),
         id_itinerary: req.sanitize(req.body.id_itinerary),
-        date_time: req.sanitize(req.body.date_time),
         block: 1,
     }
 
@@ -54,5 +73,6 @@ function deleteFollowed(req, res) {
 module.exports = {
     getFollowedByUserId,
     addFollowed,
-    deleteFollowed
+    deleteFollowed,
+    getAllFollowed
 }
