@@ -119,7 +119,7 @@ function addItinerary(req, res) {
         adults_num: req.sanitize(req.body.adults_num),
         id_deslocation: req.sanitize(req.body.id_deslocation),
         id_user: req.sanitize(req.body.id_user),
-        num_shares: req.sanitize(req.body.num_shares),
+        num_shares: 0,
         block: 1
     }
 
