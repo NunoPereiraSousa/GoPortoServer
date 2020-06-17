@@ -87,7 +87,7 @@ function addIdentityItinerary(req, res) {
 
 
 function getLastItineraryId(req, res) {
-    con.query(`select id_itinerary from itinerary where block = 1 order by id_itinerary`, (queryErr, result) => {
+    con.query(`select id_itinerary from itinerary where block = 1`, (queryErr, result) => {
         if (!queryErr) {
             if (result.length === 0) {
                 res.status(204).send(result[result.length - 1]);
