@@ -22,7 +22,17 @@ function getFollowedByUserId(req, res) {
 
 
 function getAllFollowed(req, res) {
-    con.query(`SELECT * FROM followed_itinerary WHERE block != 2`, (queryErr, result) => {
+    con.query(`SELECT 
+    followed_itinerary.id_itinerary,
+    followed_itinerary.id_user,
+    itinerary.name,
+    user.username
+FROM
+    ((D3c9hRhknT.followed_itinerary
+    INNER JOIN D3c9hRhknT.itinerary ON itinerary.id_itinerary = followed_itinerary.id_itinerary)
+    INNER JOIN D3c9hRhknT.user ON followed_itinerary.id_user = user.id_user)
+WHERE
+    followed_itinerary.block = 1`, (queryErr, result) => {
         if (!queryErr) {
             if (result.length === 0) {
                 res.status(204).send(result);
