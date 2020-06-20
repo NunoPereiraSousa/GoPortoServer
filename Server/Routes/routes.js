@@ -82,6 +82,7 @@ router.post("/add-followedItineraries", followedItineraryController.addFollowed)
 router.put("/followedItineraries/delete", followedItineraryController.deleteFollowed)
 
 // FAVORITE IDENTITY routes
+router.get("/favorites", favoriteController.getAllFavorite)
 router.get("/favorites/:id", favoriteController.getFavoriteByUserId)
 router.post("/add-favorite", favoriteController.addFavorite)
 router.put("/favorites/delete", favoriteController.deleteFavorite)
