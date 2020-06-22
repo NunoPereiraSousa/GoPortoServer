@@ -24,9 +24,9 @@ function addNotification(req, res) {
     let notification = {
         id_user: req.sanitize(req.body.id_user),
         id_suggestion: req.sanitize(req.body.id_suggestion),
-        read_status: req.sanitize(req.body.read_status),
-        date: req.sanitize(req.body.date),
-        hour: req.sanitize(req.body.hour)
+        // read_status: req.sanitize(req.body.read_status),
+        answer: req.sanitize(req.body.answer),
+        // hour: req.sanitize(req.body.hour)
     }
 
     con.query(`INSERT INTO log_table_notif SET ?`, notification, (queryErr, result) => {
