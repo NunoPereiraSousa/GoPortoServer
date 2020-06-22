@@ -53,11 +53,11 @@ function addNotification(req, res) {
 }
 
 function updateNotification(req, res) {
-    let id_user = req.sanitize(req.body.id_user);
-    let id_suggestion = req.sanitize(req.body.id_suggestion);
+    let id_notif = req.sanitize(req.body.id_notification);
+    // let id_suggestion = req.sanitize(req.body.id_suggestion);
     // let read_status = req.sanitize(req.body.read_status);
 
-    con.query("UPDATE log_table_notif SET read_status = 1 WHERE id_suggestion = ? and id_user= ?", [id_suggestion, id_user], function (err,
+    con.query("UPDATE log_table_notif SET read_status = 1 WHERE id_notif = ?", id_notif, function (err,
         result) {
         if (!err) {
             res.status(200).send(result);
