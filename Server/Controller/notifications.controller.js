@@ -5,7 +5,18 @@ const expressSanitizer = require('express-sanitizer');
 function getNotificationByUserId(req, res) {
     let user_id = req.sanitize(req.params.id)
 
-    con.query("SELECT * FROM log_table_notif WHERE id_user = ? and read_status= 0", user_id, (queryErr, result) => {
+    con.query(`SELECT 
+    log_table_notif.id_notif,
+       log_table_notif.id_suggestion,
+      log_table_notif.id_user,
+      log_table_notif.answer,
+      suggestion.new_identity
+FROM
+    ((D3c9hRhknT.log_table_notif
+    INNER JOIN D3c9hRhknT.suggestion ON suggestion.id_suggestion =  log_table_notif.id_suggestion)
+    INNER JOIN D3c9hRhknT.user ON log_table_notif.id_user = user.id_user)
+WHERE
+   log_table_notif.read_status = 0 and log_table_notif.id_user = ? `, user_id, (queryErr, result) => {
         if (!queryErr) {
             if (result.length > 0) {
                 res.status(200).send(result);
