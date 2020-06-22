@@ -53,7 +53,7 @@ function addNotification(req, res) {
 }
 
 function updateNotification(req, res) {
-    let id_notif = req.sanitize(req.body.id_notification);
+    let id_notif = req.sanitize(req.body.id_notif);
     // let id_suggestion = req.sanitize(req.body.id_suggestion);
     // let read_status = req.sanitize(req.body.read_status);
 
