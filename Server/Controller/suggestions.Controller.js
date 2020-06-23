@@ -3,7 +3,18 @@ const con = require("../Database/database")
 const expressSanitizer = require('express-sanitizer');
 
 function getSuggestions(req, res) {
-    con.query(`SELECT * FROM suggestion`, (queryErr, result) => {
+    con.query(`SELECT 
+    suggestion.id_suggestion,
+    suggestion.id_user,
+    suggestion.category_name,
+    suggestion.content,
+    suggestion.new_identity,
+    suggestion_status.status,
+    user.username
+FROM
+    ((D3c9hRhknT.suggestion
+    INNER JOIN D3c9hRhknT.suggestion_status ON suggestion.id_status = suggestion_status.id_status)
+    INNER JOIN D3c9hRhknT.user ON suggestion.id_user = user.id_user)`, (queryErr, result) => {
         if (!queryErr) {
             res.status(200).send(result);
         } else {
