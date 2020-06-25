@@ -50,6 +50,7 @@ function addUsers(req, res) {
     });
 }
 
+// 
 function getUserByID(req, res) {
     let id_user = req.sanitize(req.params.id);
 
