@@ -82,7 +82,7 @@ function deleteIdentity(req, res) {
 
 
 function deleteIdentityBasedOnCategory(req, res) {
-    let category_name = req.sanitize(req.body.category_name);
+    let category_name = req.sanitize(req.params.id);
     con.query("UPDATE identity SET block = 2 WHERE category_name = ?", category_name, function (err,
         result) {
         if (!err) {
