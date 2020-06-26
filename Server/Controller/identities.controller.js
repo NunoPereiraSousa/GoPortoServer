@@ -73,7 +73,7 @@ function deleteIdentity(req, res) {
     con.query("UPDATE identity SET block = 2 WHERE id_identity = ? and block != 2", id_identity, function (err,
         result) {
         if (!err) {
-            res.status(200).send(result);
+            next()
         } else {
             res.status(500).send("Something went wrong, please try again")
         }
