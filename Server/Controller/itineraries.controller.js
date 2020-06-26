@@ -171,6 +171,9 @@ function deleteItinerary(req, res) {
     });
 }
 
+
+
+
 function ThreeMostFollowedItineraries(req, res) {
     con.query(`SELECT 
                     num_shares, itinerary.name, user.username

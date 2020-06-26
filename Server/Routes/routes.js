@@ -50,7 +50,7 @@ router.get("/categories", categoryController.getCategories)
 router.get("/categories/:id", categoryController.getCategoryByID)
 router.post("/add-categories", categoryController.addCategory)
 router.put("/categories/update/:id", categoryController.updateCategory)
-router.put("/categories/delete/:id", categoryController.deleteCategory)
+router.put("/categories/delete/:id", identityController.deleteIdentityBasedOnCategory, categoryController.deleteCategory)
 
 // LOGIN & REGISTER routers
 router.post("/login", logAndRegController.logUser)

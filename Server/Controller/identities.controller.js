@@ -80,10 +80,24 @@ function deleteIdentity(req, res) {
     });
 }
 
+
+function deleteIdentityBasedOnCategory(req, res) {
+    let category_name = req.sanitize(req.body.category_name);
+    con.query("UPDATE identity SET block = 2 WHERE category_name = ?", category_name, function (err,
+        result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else
+            res.status(500).send("Something went wrong please try again", err)
+    });
+}
+
+
 module.exports = {
     getIdentities,
     getIdentityByID,
     addIdentity,
     updateIdentity,
-    deleteIdentity
+    deleteIdentity,
+    deleteIdentityBasedOnCategory
 }
