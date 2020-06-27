@@ -25,6 +25,8 @@ router.put("/users/update/:id", userController.updateUser)
 router.put("/users/block/:id", userController.blockUser)
 router.put("/users/delete/:id", userController.deleteUser)
 router.post("/add-users-admin", userController.addUsersAdmin)
+router.put("/users/profileUpdate/:id", userController.updateProfile)
+
 
 // IDENTITIES routers
 router.get("/identities", identityController.getIdentities)

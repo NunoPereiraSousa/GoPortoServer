@@ -80,7 +80,7 @@ function updateUser(req, res) {
     let photo = req.sanitize(req.body.photo);
     let location = req.sanitize(req.body.location);
     let birth = req.sanitize(req.body.birth);
-    let message = null    
+    let message = null
 
     bcrypt.hash(password, 10, (err, hash) => {
         if (!err) {
@@ -91,7 +91,7 @@ function updateUser(req, res) {
                         res.status(200).send(result);
                     } else {
                         console.log(queryErr);
-                        
+
                     }
                 })
         } else {
@@ -100,6 +100,36 @@ function updateUser(req, res) {
         }
     });
 }
+
+
+
+
+
+
+
+function updateProfile(req, res) {
+    let id_user = req.sanitize(req.params.id);
+    let name = req.sanitize(req.body.name);
+    let email = req.sanitize(req.body.email);
+    let photo = req.sanitize(req.body.photo);
+    let location = req.sanitize(req.body.location);
+    let birth = req.sanitize(req.body.birth);
+
+    con.query(`UPDATE user SET name = ? email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
+        [name, email, photo, location, birth, id_user], (queryErr, result) => {
+            if (!queryErr) {
+                message = "User edited with success"
+                res.status(200).send(result);
+            } else {
+                res.status(500).send(result)
+            }
+        })
+}
+
+
+
+
+
 
 function blockUser(req, res) {
     let id_user = req.sanitize(req.params.id);
@@ -162,5 +192,6 @@ module.exports = {
     updateUser,
     deleteUser,
     blockUser,
-    addUsersAdmin
+    addUsersAdmin,
+    updateProfile,
 }
