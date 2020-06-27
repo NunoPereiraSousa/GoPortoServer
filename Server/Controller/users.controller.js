@@ -115,7 +115,7 @@ function updateProfile(req, res) {
     let location = req.sanitize(req.body.location);
     let birth = req.sanitize(req.body.birth);
 
-    con.query(`UPDATE user SET name = ? email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
+    con.query(`UPDATE user SET name = ?, email = ?, photo = ?, location = ?, birth = ? WHERE id_user = ?`,
         [name, email, photo, location, birth, id_user], (queryErr, result) => {
             if (!queryErr) {
                 message = "User edited with success"
