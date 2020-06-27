@@ -106,7 +106,7 @@ function updateUser(req, res) {
 
 
 
-
+// Todo
 function updateProfile(req, res) {
     let id_user = req.sanitize(req.params.id);
     let name = req.sanitize(req.body.name);
@@ -121,10 +121,11 @@ function updateProfile(req, res) {
                 message = "User edited with success"
                 res.status(200).send(result);
             } else {
-                res.status(500).send(result)
+                res.status(500).send(queryErr)
             }
         })
 }
+// Todo 
 
 
 
